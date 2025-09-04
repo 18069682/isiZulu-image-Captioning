@@ -1,9 +1,13 @@
-# Data Folder
+## Dataset
 
-This folder contains datasets used for isiZulu image captioning.
+We use the [Flickr8k dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), originally annotated in English.  
+For this project, captions are translated into isiZulu with human verification to ensure linguistic accuracy.  
 
-- `images/` → Image dataset (to be added)
-- `captions/` → isiZulu captions aligned with images
+### Download Instructions
+1. Sign in to [Kaggle](https://www.kaggle.com/).
+2. Go to the [dataset link](https://www.kaggle.com/datasets/adityajn105/flickr8k).
+3. Download and extract the dataset.
+4. Place it inside the `data/` folder of this repository:
 
-⚠️ Note: Due to size constraints, datasets are not stored in this repository.
+
 
