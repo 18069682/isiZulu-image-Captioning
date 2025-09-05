@@ -1,1 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx} % ✅ Needed for logo
+\usepackage{titlesec} % ✅ Needed for spacing control
+\usepackage{hyperref} % ✅ Makes GitHub link clickable
+
+\geometry{a4paper, margin=1in}
+
+% Reduce spacing between sections
+\titlespacing*{\section}{0pt}{0.7em}{0.4em}
+\titlespacing*{\subsection}{0pt}{0.5em}{0.3em}
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[width=0.25\linewidth]{up logo.jpeg}\\[0.8em]
+    \textbf{COS 801 Project-Group 8}\\[0.3em]
+    \large \textbf{Bridging the Visual-Linguistic Divide: An Automated Image Captioning System for isiZulu using Deep Visual Attention Models}\\[1em]
+    \normalsize
+    \textbf{Muphulusi Dzivhani (u18069682)} \\
+    \textbf{Ndaedzo Makgatho (u25739906)} \\
+    \textbf{Simamkele Mtsengu (u17042845)}
+\end{center}
+
+\section{Problem}
+Current image captioning systems perform well in English but underperform in low-resource languages such as isiZulu. Captions often lack fluency, semantic richness, and cultural relevance. There is no existing automated system for isiZulu captions, highlighting a research gap in African languages. This project aims to develop an attention-based deep learning model to generate accurate and culturally appropriate isiZulu image captions, enhancing accessibility for people who cannot read or who require explanations in their home language.
+
+\section{Data}
+\begin{itemize}[leftmargin=*,noitemsep]
+    \item \textbf{Dataset:} Flickr8k corpus, originally annotated in English and translated into isiZulu with human annotators.
+    \item \textbf{Risks:} Small dataset size and translation errors may affect quality.
+    \item \textbf{Mitigation:} Data augmentation, transfer learning, and preprocessing.
+\end{itemize}
+
+\section{Baseline \& Model Plan}
+\begin{itemize}[leftmargin=*,noitemsep]
+    \item \textbf{Baseline:} CNN (ResNet50/InceptionV3) + LSTM decoder without attention.
+    \item \textbf{Proposed Model:} Dual attention (spatial + semantic); explore transformer-based architectures for low-resource languages.
+    \item \textbf{Implementation:} TensorFlow/Keras or PyTorch.
+\end{itemize}
+
+\section{Metrics}
+\begin{itemize}[leftmargin=*,noitemsep]
+    \item \textbf{Automated:} BLEU, METEOR, ROUGE, CIDEr.
+    \item \textbf{Human evaluation:} Fluency, semantic accuracy, and cultural relevance.
+\end{itemize}
+
+\section{Risks, Compute Plan, and Milestones}
+Risks include dataset size limitations, cultural/linguistic translation challenges, and compute demands of training deep models. Training will be managed using CPU/GPU-enabled environments with optimizations like batch normalization and early stopping. 
+
+\subsection{Risks}
+\begin{itemize}
+    \item Dataset limitations may hinder fluency and cultural relevance.
+    \item Compute constraints for training deep models with attention.
+\end{itemize}
+
+\subsection{Compute Plan}
+\begin{itemize}
+    \item Use GPU-enabled environments (e.g., Google Colab Pro or university HPC clusters).
+    \item Optimize training with batch normalization and early stopping.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item Translate and annotate Flickr8k captions into isiZulu.
+    \item Implement baseline Bengali model adaptation.
+    \item Train and validate attention-based model.
+    \item Conduct SHAP and ablation studies.
+    \item Finalize evaluation and publish findings.
+\end{itemize}
+
+\section{Key Papers (Anchor)}
+\begin{enumerate}[leftmargin=*,noitemsep]
+    \item \textbf{Image Captioning in Bengali}: Demonstrates low-resource language captioning using CNN+RNN with attention.
+
+item \textbf{English to Zulu (Marivate, Sefara, Khoboko)}: Demonstrates that carefully designed prompts and parameter-efficient fine-tuning (PEFT) can significantly improve English-to-Zulu translation performance with large language models, enabling effective NLP for low-resource African languages.
+    \item \textbf{Attention-Based Transformer Models for Image Captioning Across Languages}: Discusses multilingual transformer approaches and attention mechanisms.
+\end{enumerate}
+
+\bigskip
+\noindent \textbf{GitHub Repository:} \href{https://github.com/18069682/isiZulu-image-Captioning}{https://github.com/18069682/isiZulu-image-Captioning}
+
+\end{document}
 
