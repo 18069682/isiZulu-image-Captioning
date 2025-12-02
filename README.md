@@ -3,7 +3,7 @@
 ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
 ![Big Data](https://img.shields.io/badge/Focus-Big%20Data-orange)
 ![Status](https://img.shields.io/badge/Assignment-Completed-brightgreen)
-![Accuracy](https://img.shields.io/badge/Accuracy-85.3%25-green)
+
 
 
 
