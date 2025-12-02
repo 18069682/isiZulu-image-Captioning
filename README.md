@@ -1,4 +1,4 @@
-# 📊 📊 COS 801 – OS801 Project Report 2025-Bridging the Visual-Linguistic Divide: An Automated Image Captioning System for isiZulu using Deep Visual Attention Models
+# 📊  COS 801 – Project Report 2025-Bridging the Visual-Linguistic Divide: An Automated Image Captioning System for isiZulu using Deep Visual Attention Models
 
 ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
 ![Big Data](https://img.shields.io/badge/Focus-Big%20Data-orange)
