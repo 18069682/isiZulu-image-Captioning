@@ -1,3 +1,5 @@
+📊 COS 801 – isiZulu-image-Captioning
+Made with Python Big Data Status Accuracy
 
 
 📊 Dataset Information
@@ -56,39 +58,6 @@ If you encounter any issues:
 
 Check the error message in Colab
 
-Verify all files are uploaded correctly
-
-Ensure you're running cells in order
-
-Contact the developer if problems persist
-
-Note: Colab sessions time out after inactivity. For long training sessions, consider:
-
-Using Colab Pro for longer runtime
-
-Saving checkpoints to Google Drive
-
-Running training in smaller batches
-
-Happy captioning! 🖼️➡️🗣️
-
-This response is AI-generated, for reference only.
-thanks love but i want a GitHub readme file
-We are creating a GitHub README file that will guide the lecturer (or any user) on how to set up and run the code in a Google Colab environment. The README should be clear, step-by-step, and include necessary details about the project structure and how to handle the data.
-
-We have already provided the code that sets up the project in Colab. The README should include:
-
-Project title and brief description.
-
-Setup instructions for Google Colab.
-
-Step-by-step guide to run the code.
-
-Information about the dataset and how to load the provided JSON file.
-
-Expected outputs.
-
-Let's structure the README accordingly.
 
 IsiZulu Image Captioning Project
 📖 Description
