@@ -1,41 +1,16 @@
 🖼️ COS 801: isiZulu Image Captioning
 
-Transforming Flickr8k image captions to isiZulu using  ResNet and Inception.
-
-📌 Project Overview
-
-This project investigates image captioning for low-resource African languages, focusing on isiZulu.
-The workflow includes:
-
-Preparing and cleaning captions
-
-Translating English → isiZulu
-
-Training image captioning models
-
-Evaluating outputs
-
-Producing sample predictions
-
-The project uses the Flickr8k dataset, a custom isiZulu captions JSON, and a Google Colab–based workflow.
 
 📁 Repository Structure
 .
 ├── isizulu_captioning.ipynb     # Main notebook with dataset prep and caption alignment
 ├── zu_captions.json             # isiZulu captions file (provided separately)
-├── README.md                    # You're reading this :)
+├── README.md                    
 └── results/                     # Evaluation outputs, sample captions, model results
 
 🔧 Requirements
 
-This project is developed for Google Colab.
-You only need:
-
-Google account
-
-Internet connection
-
-The following files:
+You only need the following files:
 
 isizulu_captioning.ipynb
 
