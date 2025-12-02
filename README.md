@@ -1,6 +1,6 @@
 🖼️ COS 801: isiZulu Image Captioning
 
-Transforming Flickr8k image captions from English → isiZulu using Neural Machine Translation and Image Captioning Models.
+Transforming Flickr8k image captions to isiZulu using  ResNet and Inception.
 
 📌 Project Overview
 
