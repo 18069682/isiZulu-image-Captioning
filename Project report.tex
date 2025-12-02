@@ -1,0 +1,268 @@
+\documentclass{article}
+\usepackage[final]{nips_2017}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}
+
+
+
+\title{COS801 Project Report 2025-Bridging the Visual-Linguistic Divide: An Automated Image Captioning
+System for isiZulu using Deep Visual Attention Models }
+
+\author{
+Simamkele Mtsengu \\
+\texttt{u17042845@tuks.co.za} \\
+\And
+Ndaedzo Makgatho \\
+\texttt{u25739906@tuks.co.za} \\
+\AND
+Muphulusi Dzivhani \\
+\texttt{u18069682@tuks.co.za} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\begin{center}
+\includegraphics[width=3cm, height=0.7cm]{cos801UP}
+\end{center}
+
+\maketitle
+
+\begin{abstract}
+Automated image captioning has been very successful in previous studies that made use of high resource languages such as English but the tool is not as accessible to people that speak low-resource languages like isiZulu. This imbalance widens the digital exclusion gap and language divide even further. This project aims to fill in this gap by proposing an isiZulu-focused image captioning model that is built on deep learning foundations. More specifically, the model makes use of an encoder and decoder architecture that has been improved by using spatial attention mechanisms to enhance the contextual alignment between visual input features and language output. Training and evaluation of the model was conducted on the Flickr8k dataset, which was translated into an isiZulu to English corpus, giving an innovative benchmark resource. Additionally, a  Convolutional Neural Network (CNN)-Long Short-Term Memory (LSTM) model was implemented and thereafter compared to an attention-based approach. The model performance was measured using NLP metrics such as Bilingual Evaluation Understudy (BLEU), Metric for Evaluation of Translation with Explicit Ordering (METEOR) and Metric for Evaluation of Translation with Explicit Ordering 
+(CIDEr). The metrics were complemented by conducting a human evaluation to check for fluency, semantic accuracy and relevance in a cultural context. The results show that the InceptionV3 model had better
+performing METEOR(0.14), CIDEr(0.19), ROUGE(0.36) metrics as well as overall caption quality in comparison to Restnet50. 
+\end{abstract}
+% Add the expansions of all acronyms appearing the first time
+\section{Introduction}	
+\subsection{Problem Investigation and Research Significance}
+The automated image captioning field is influenced mostly by research that is centred around high-resource languages, specifically English\cite{vinyals2015show}\cite{vaswani2017attention}. This means that most image captioning is based on English. Although the English image captioning results in impressive fluency and semantic precision, it leaves behind low-resource languages such as isiZulu. The scarce image captioning systems that do exist for isiZulu are limited to direct translations from English captions and the outputs from these translations are typically overly formal, semantically inaccurate and culturally inappropriate, failing to meet the communicative needs of native speakers\cite{oduwole2025africaption}. The critical issue highlighted is that there is a complete lack of end-to-end captioning systems or models that are designed specifically for isiZulu. This leaves a significant research gap in African NLP and restricts over 12 million isiZulu speakers from digital accessibility of native image captioning\cite{worlddata_zulu}.
+This project aims to address this inequity by aligning with the United Nations Sustainable Development Goal (SDG) 10, which is ‘Reduced Inequalities’. Through developing an isiZulu image captioning system, this research can be utilised to lower the divide in digital language and can assist to promote inclusive access to AI technologies. This work is significant due to its technical contribution but also but also because of the social impact it will have, which enables isiZulu speakers to engage with multimodal AI systems in their own language. This in turn promotes equity, representation and cultural relevance in digital spaces.
+
+\subsection{Research Motivation and Interest}
+The problem that is being investigated in this study is vital because of a few reasons, the first that it addresses the urgent social equity concerns mention previously by bridging the digital divide for isiZulu speakers and ensuring that underrepresented communities benefit from continued advances in AI. Secondly, isiZulu contains unique language challenges such as its agglutinative nature, meaning that a lot of information can be expressed in a single word. IsiZulu is also rich in morphology, which makes it an excellent test case to adapt neural methods to diverse language structures that are beyond English that dominate current NLP research. Thirdly, successfully implementing this project would provide a model framework that can be replicated for developing further similar systems for other African languages. This would benefit millions of speakers across the continent. It can be concluded that the project has the potential to reshape the global research landscape through progressing multilingual AI low in resources. Finally, due to the introduction of a benchmark dataset and the evaluation of attention-based architectures in isiZulu, this will contribute to a new set of resources and methodologies to the field of multimodal NLP. This would place the project in a position of having both academic and practical relevance.
+
+\subsection{Project Challenges and Constraints}
+The challenges that confront this project span multiple domains and they require careful consideration. Data scarcity represents a fundamental constraint due to parallel image-caption resources for isiZulu being extremely limited. To combat this, the project relies on translation and augmentation strategies to create a dataset that can be used in model building and evaluation. Additionally, isiZulu has linguistic complexities such as an agglutinative structure which complicates managing vocabulary and necessitates using specialized tokenization approaches. Another challenge is maintaining cultural translation due to direct lexical translation which often times fails to capture the contextually appropriate meanings of words making cultural relevance a critical point of evaluation.
+
+Furthermore, technical adaptation requirements worsen these challenges, as attention mechanisms that were originally designed for English must now be modified to function effectively with isiZulu language’s distinct semantic structures. In terms of computational constraints, the challenge lies in the restrictions of developing robust evaluation methodologies. The research has a main research question: Can a deep visual attention model generate fluent, accurate and culturally relevant image captions in isiZulu? To this end the project establishes four objectives including constructing a high-quality isiZulu-English image caption dataset based on Flickr8k, implementing and evaluating a baseline CNN-LSTM model, designing and rigorously testing an attention-based model tailored to isiZulu and benchmarking performance using both automated metrics and human evaluation conducted by native speakers.
+The scope of this project is intentionally focused on research and development and excludes real-time deployment or user interface design. This was done to ensure that there is concentrated progress on the model’s core capabilities. The project balances technical innovation with social responsibility which should deliver both academic contributions and tangible benefits for isiZulu speakers.
+
+
+\section{Related work}
+To build on the problem statement and research motivation outlined in the abstract and introduction, this literature review places this isiZulu image captioning project within the broader field of multimodal natural language processing. While the introduction identified the absence of effective captioning systems for isiZulu and emphasized the challenges of data scarcity, linguistic complexity and cultural relevance, the following review examines how similar issues have been addressed in other low-resource languages. Through analysing studies in Bengali and Hindi as well as the multilingual ArtELingo-28 benchmark that explicitly includes African languages, this section focuses on the inspiration for the methodology, cultural considerations as well as resource development efforts that inform and justify the need for an isiZulu-specific captioning system.
+
+\subsection{Low resource image captioning in Bengali}
+The study conducted by Masud et al.\cite{masud2025image} demonstrates an advanced attempt at automated image captioning in the Bengali language, which is low-resourced and morphologically complex. The paper showcased two challenges, firstly how complex it is to integrate computer vision with natural language processing and secondly it shows the scarcity of Bengali-captioned image datasets. To overcome these limitations the authors curated a human annotated dataset that forms the foundation for their proposed end-to-end architecture. The model itself makes use of Gated Recurrent Units (GRUs) combined with an attention-driven decoder, that enables the system to align spatial and temporal visual features with language tokens. This of the model system allowed the attention mechanism to evaluate the relationship between visual inputs and caption features dynamically which then produced coherent and contextually relevant Bengali sentences. The model achieved 43\% BLEU-4, 39\% METEOR and 47\% ROUGE scores which shows a significant improvement from prior work in Bengali captioning.
+
+Upon deeper analysis we see that the study demonstrates the importance of tailoring neural architectures to the linguistic and structural properties of low-resource languages. Bengali, like isiZulu, is morphologically rich and presents challenges that differ substantially from those encountered in the English language. The authors use of attention mechanisms illustrates how such models can help overcome the issues of fluency and semantic alignment in languages with complex morphology. However, while the results were promising, they still had to rely on humans to manually curate the dataset which emphasizes the continued issue of data scarcity. For the isiZulu project, this work provides a basis for the methodology but also it brings forward something to be cautious about which is: attention-based architectures can enhance caption quality in low-resource contexts, but good performance of these models depends heavily on the availability of culturally and linguistically appropriate training data.
+
+\subsection{Low resource image captioning in Hindi}
+Another study looks at a hybrid approach that uses CNN and LSTM for image captioning but in the Hindi Language. It addresses the increasing need to extend multimodal AI systems beyond English into linguistically diverse and low-resource languages. The authors proposed a multi-layered CNN-LSTM architecture that combines computer vision with natural language processing to generate captions in Hindi. The study experimented with changing the model hyperparameters in a systematic way and did so to the depth of hidden layers as well. Through this experimentation they identified an optimal configuration that significantly improved caption quality. Their model resulted in a BLEU score of 34.64\% for unigram and a score of 29.13\% for bigram, which is a significant increase from previous Hindi captioning models. This established a stronger baseline for subsequent research in this domain. The paper emphasizes the societal relevance of such systems, highlighting their potential to provide user-friendly interfaces for Hindi speakers and to support applications ranging from accessibility tools to educational technologies\cite{poddar2023hybrid}.
+
+Similar to the Bengali image camptioning, the Hindi study shows the promise and the limitations of hybrid CNN-LSTM approaches in low-resource language settings. While the reported improvements in BLEU scores are impressive, the evaluation remains focused on automated metrics. This still leaves questions about semantic accuracy, fluency and cultural appropriateness unanswered. Additionally, the reliance on hyperparameter tuning and architectural adjustments, even though it has been shown to be effective, it does not fully resolve the underlying challenge of data scarcity. This affects the scalability of these models. For the isiZulu image captioning, this work demonstrates how convolutional and recurrent layers can be adapted to capture visual features and generate linguistically coherent captions in a morphologically complex language. However, it also highlights the importance of complementing quantitative evaluation with human judgment to ensure that the captions are not only technically accurate but that they are also culturally meaningful. In this way, the Hindi study provides both methodological guidance and a reminder of the broader challenges that must be addressed when extending image captioning systems to isiZulu and other African languages.
+
+\subsection{Comparative lessons from image captioning in both Bengali and Hindi}
+The Bengali and Hindi image captioning studies provide us with matching perspectives on how deep learning architectures can be adapted to low-resource, morphologically complex languages and together they give insight into valuable lessons for the development of this project’s isiZulu image captioning model. Masud et al. approached the challenge of Bengali image captioning by curating a human-annotated dataset and using an attention-driven decoder integrated with Gated Recurrent Units\cite{masud2025image}. Their emphasis on attention mechanisms allowed the model to align visual features with linguistic tokens in a dynamic way. On the other hand, the Hindi study adopted a hybrid CNN-LSTM model, that focuses on optimizing the network depth and hyperparameters to improve the caption quality. Instead of introducing a new approach to attention mechanisms, the authors show readers that a model that is architecturally tuned and parameter tuned can result in significant model improvement. In contrast however, these papers also make readers aware that the evaluation od the model results was highly reliant on automated metrics which means that the cultural relevance is possibly still in question, as well as the semantic accuracy\cite{poddar2023hybrid}.
+
+Together, these studies highlight show two strategies for addressing low-resource image captioning: the Bengali work focuses on the creation of annotated datasets and the integration of attention mechanisms to handle linguistic complexity. The Hindi work demonstrates the effectiveness of architectural tuning and optimization in improving performance despite having limited resources. For the isiZulu project in the report, these insights point to two useful approaches. The first approach being attention-based models which are important because they can handle the way isiZulu words are built from many smaller parts and still keep the meaning clear. The second approach is carefully testing model performance with CNN-LSTM baseline models which provides a strong model benchmark. The second approach also shows how much performance can be improved through adjustments to the models' design. Importantly, both studies highlight that it is necessary to combine quantitative evaluation with human judgment to ensure that captions are technically accurate and culturally meaningful. It is noted that by combining these approaches, the isiZulu project builds a robust framework that balances methodological innovation with practical adaptation which contributes to multimodal NLP for African languages.
+
+
+\subsection{ Multilingual Benchmarks and African Languages}
+The next study focuses on ArtELingo-28 which is a large-scale vision language benchmark model built on WikiArt images and annotated with captions in 28 different languages. Previous versions of ArtELingo made use of the Mirosoft COCO data which had a focus on English captions. In the  ArtELingo-28 model, art is interpreted subjecively according to the type of art in the images and because the art is from different cultures this introduces a cultural awareness to the model. This means the ArtELingo-28 introduces a new aspect of image captioning that is not literal object descriptions but contextually interpreting art. The dataset is comprised of 200,000 annotations, which is estimated to be approximately 140 captions per image. This dataset is designed to capture the diversity of opinions and linguistic expressions across cultures. The authors evaluate the baseline models with three approaches: Zero-Shot, Few-Shot and One-vs-All Zero-Shot. They then report that cross-lingual transfer works best between languages that have cultural similarities. This finding is particularly relevant for African languages, as it suggests that transfer learning from linguistically or culturally similar languages could improve captioning performance in low-resource contexts. The benchmark includes African languages among its 28, making it one of the few large-scale resources to explicitly address the multilingual and multicultural dimensions of image captioning\cite{mohamed2024no}.
+
+ArtELingo-28 broadens the conversation about image captioning by moving beyond English and a handful of Asian languages to include a wider set of linguistic communities. Its emphasis on emotional and cultural diversity in captions highlights the need for models that are not only technically accurate but also culturally sensitive and contextually meaningful. However, the dataset is focused on art images rather than everyday photographs, which may limit the ability to directly apply the approach used in ArtELingo-28 in practice. For example in accessibility, healthcare captioning or education. Nonetheless, this study demonstrates the feasibility of building multilingual captioning benchmarks that include African languages and it points out the importance of cultural relevance in caption generation.
+
+
+\section{Dataset and Features}
+% [Crosscheck-to be removed: Describe your dataset: how many training/validation/test examples do you have? Is there any preprocessing you did? What about normalization or data augmentation? What is the resolution of your images? How is your time-series data discretized? Include a citation on where you obtained your dataset from. Depending on available space, show some examples from your dataset. You should also talk about the features you used. If you extracted features using Fourier transforms, word2vec, PCA, ICA, etc. make sure to talk about it. Try to include examples of your data in the report (e.g. include an image, show a waveform, etc.).]
+
+\subsection{Dataset Selection and Rationale}
+We utilize the  publicly available Flickr8k dataset (\url{https://www.kaggle.com/datasets/adityajn105/Flickr8k}), as our primary data source, comprising of 8000 images each paired with five English captions, resulting in a comprehensive collection of 40000 image-caption pairs. We split the dataset into 3000 images for training and 1000 for testing, to ensure a comparable evaluation across the different implementations and facilitating a meaningful benchmarking against existing research. The reduced number of images is due to storage and processing resource limitations on our computers and the google Colab space. Samples of the images included in the Flickr8k are seen in Figure~\ref{fig:feats_extract}. Figure~\ref{fig:top_words} shows information extracted from exploring the data. We note that the length of words as well as the top popular isiZulu words. On average the captions contain 3 to eleven words per caption, this demonstrates the agglutinative nature of isiZulu, that an English sentence can be compressed into one word in isiZulu, very few captions contain more than 15 words, with out lier captions falling in at 75 words. In the top words we noted that a fullstop is listed as the most frequent however, punctuation needs to be cleaned from the dataset which is done in preprocessing. The next set of popular words are 'owesifazane' indicating most of the captions are captioned to be female, animals, such as dogs 'inja' and the sky'okwsibakabaka'. These show some of the themes of the images contained in the dataset.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{feature extraction.png}
+    \caption{Examples of the images included in the Flickr8k dataset including the five captions of the image.}
+    \label{fig:feats_extract}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Top words.png}
+    \caption{Word length and top words of the image captions in isiZulu}
+    \label{fig:top_words}
+\end{figure}
+
+\subsection{Data Collection and Annotation Protocol}
+To construct the isiZulu parallel corpus, we implement a rigorous multi-stage translation and annotation protocol. Each English caption undergoes translation by a minimum of two isiZulu speakers, with a third native speaker serving as adjudicator for cases of disagreement or uncertainty. This structured approach ensures both translation quality and cultural appropriateness, moving beyond
+literal translation to capture fluent, contextually relevant isiZulu expressions. We developed comprehensive annotation guidelines to maintain consistency across all translators, addressing critical aspects including appropriate tone and register for descriptive captions, handling of culturally specific concepts and objects, consistency in terminology for common objects and actions and preservation of natural isiZulu syntactic structures rather than direct English translations.
+\subsection{Data Preprocessing Pipeline}
+Our data preprocessing pipeline addresses the unique characteristics of both visual and linguistic data. For text processing, we implement SentencePiece subword tokenization with a vocabulary size of 8000-10000 tokens, specifically designed to handle isiZulu's adhesive linguistic form effectively
+while avoiding the vocabulary explosion issues inherent in word-level tokenization approaches. Image processing involves resizing to 224×224 pixels, normalization using ImageNet statistics and comprehensive data augmentation techniques including random cropping, horizontal flipping and color jittering during training. These transformations significantly improve model robustness and help mitigate overfitting concerns given our constrained dataset size.
+To address data scarcity challenges, we employ back-translation for caption augmentation, utilizing preliminary machine translation models to generate paraphrased isiZulu captions that maintain semantic content while introducing valuable syntactic variation. The resulting dataset represents
+the first dedicated isiZulu image-caption corpus of this scale, providing an invaluable resource not only for this project but also for future research in African language multimodal AI, establishing a foundation for continued innovation in this underserved domain.
+
+
+\section{ Methods }
+% [To be removed: Describe your learning algorithms, proposed algorithm(s), or theoretical proof(s). Make
+% sure to include relevant mathematical notation. For example, you can include the loss function you are using. It is okay to use formulas from the lectures (online or in-class). For each algorithm, give a short description 
+% of how it works. Again, we are looking for your understanding of how these deep
+% learning algorithms work. Although the teaching staff probably know the algorithms, future
+% readers may not (reports will be posted on the class website). Additionally, if you are
+% using a niche or cutting-edge algorithm (anything else not covered in the class), you may want to explain your algorithm using 1/2
+% paragraphs. Note: Theory/algorithms projects may have an appendix showing extended
+% proofs (see Appendix section below).]
+
+This study uses an attention-based deep learning model for automatic image captioning in isiZulu. The approach is inspired by the methods used in the Bengali and Hindi image captioning studies\cite{masud2025image}\cite{poddar2023hybrid}.
+
+The model follows an encoder-decoder structure, where the encoder uses a pre-trained CNN ResNet50, to extract important visual features from each image. These features were then passed to a decoder, which uses a Recurrent Neural Network (RNN) like LSTM and  GRU to generate captions in isiZulu. To help the model focus on the most relevant parts of an image while generating each word, an attention mechanism was added. This technique has been shown to improve accuracy and fluency in the Bengali and Hindi captioning systems mentioned. The Flickr8k dataset was used as a base, with the English captions translated and refined into isiZulu by human annotators to ensure accuracy and cultural relevance. The model was built and trained using PyTorch and the model performance was evaluated using BLEU, METEOR and CIDEr metrics. Figure~\ref{fig:cnn_rnn}  illustrates the CNN-RNN architecture. 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{CNN-RNN Architecture.png}
+    \caption{The CNN-RNN architecture following an encoder-decoder structure.}
+    \label{fig:cnn_rnn}
+\end{figure}
+
+\subsection{CNN and Resnet50 explained}
+Convolutional Neural Networks are a class of deep learning models specifically designed for image recognition and classification tasks \cite{naranjo2020review}. Unlike traditional artificial neural networks that require extensive parameters to process raw pixel data, CNNs employ convolutional layers with learnable filters to automatically extract hierarchical features such as edges, textures and shapes. These features are progressively refined through pooling and activation functions, enabling efficient representation of complex visual patterns. However, as network depth increases, conventional CNNs often encounter vanishing gradients and degraded performance. To address this, Residual Networks (ResNets) introduce shortcut connections that allow outputs from earlier layers to bypass intermediate transformations and be added directly to deeper layers \cite{mascarenhas2021comparison}. This residual learning framework mitigates training difficulties in very deep architectures, ensuring stable optimization and improved accuracy. In particular, ResNet50, with its 48 convolutional layers and residual connections, has demonstrated superior performance in image classification compared to VGG16 and VGG19, achieving higher accuracy while reducing overfitting.
+
+\subsection{LSTM explained}
+Long Short-Term Memory networks are a specialized type of recurrent neural network (RNN) designed to capture sequential dependencies in data by overcoming the vanishing gradient problem common in traditional RNNs. LSTMs achieve this through memory cells and gating mechanisms (input, output and forget gates) that regulate the flow of information across time steps, allowing the model to retain or discard context as needed\cite{hochreiter1997long}. While CNNs excel at extracting spatial features from images, LSTMs are particularly effective at modeling temporal or sequential patterns in text, speech and time-series data. In image captioning tasks, for example, CNNs are often employed to encode the visual features of an image, which are then passed to an LSTM decoder that generates coherent natural language descriptions. This complementary relationship, CNNs for spatial representation and LSTMs for sequential generation,forms the foundation of many encoder-decoder architectures in computer vision and natural language processing, enabling models to bridge visual inputs with linguistic outputs.
+
+
+\section{Experiment/Results/Discussion}
+
+The dataset was run through \textbf{ResNet-50} and \textbf{InceptionV3} for image captioning. The same dataset was utilized with similar hyperparameters for both models: mini-batch of 32 and learning rate of 0.001 with 10 epochs of training \textbf{ResNet-50}  and 18 epochs of training \textbf{InceptionV3}
+
+\subsection{Training Loss}
+
+Figure~\ref{fig:training_loss} illustrates the training loss of both models where InceptionV3 had a lower loss by the end and appears to converge more reliably.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{resnet training.jpeg}
+    \includegraphics[width=0.45\textwidth]{Inception Training loss.jpeg}
+    \caption{Training loss comparison: ResNet-50 (left) and InceptionV3 (right).}
+    \label{fig:training_loss}
+\end{figure}
+
+\subsection{Qualitative Results}
+
+Figure~\ref{fig:resnet_captions} below showcases sentences of generated captions from \textbf{ResNet-50} and \textbf{InceptionV3} using isiZulu training data. Overall, we note that \textbf{InceptionV3} provides more detailed captions that align better with the reference captions than those generated by \textbf{ResNet-50}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Resnet Images.jpeg}
+     \hspace{0.05\textwidth}
+    \includegraphics[width=0.45\textwidth]{Inception Images.jpeg}
+    \caption{Predicted captions: ResNet-50 (left) vs InceptionV3 (right). InceptionV3 captions are more accurate and descriptive.}
+    \label{fig:resnet_captions}
+\end{figure}
+
+\subsection{Word cloud produced from captions created from the InceptionV3 model}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Wordcloud.jpeg}
+    \caption{Word cloud produced from captions created from the InceptionV3 model. Larger words represent those used more frequently by the model based on its learning.  }
+    \label{fig:wordcloud}
+\end{figure}
+
+\subsection{Quantitative Results}
+
+All performance parameters were assessed using BLEU-1 to BLEU-4, METEOR and CIDEr scores, which can be found in  Table~\ref{tab:final_metrics} below culminating in all scores being higher for InceptionV3 than ResNet-50.
+
+
+\begin{table}[ht]
+    \centering
+    \caption{ResNet-50 vs InceptionV3 Quantitative Evaluation Metrics Metric}
+    \label{tab:final_metrics}
+    \begin{tabular}{lccccc}
+        \hline
+        \textbf{Model} & \textbf{Word Acc} & \textbf{BLEU-4} & \textbf{METEOR} & \textbf{CIDEr} & \textbf{ROUGE} \\
+        \hline
+        ResNet-50 + Attention   & 41.7\% & 0.0694 & 0.1286 & 0.1743 & 0.3444 \\
+        InceptionV3 + Attention & 39.7\% & 0.0657 & 0.1385 & 0.1938 & 0.3623 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{Discussion}
+
+The above statistics provide both a qualitative and quantitative advantage for \textbf{InceptionV3} as a more descriptive, accurate image captioning model for isiZulu.ResNet performs slightly better in Word Accuracy but \textbf{InceptionV3} performed better in METEOR, CIDEr, ROUGE, and overall caption quality.The word cloud and sample predicted captions show that \textbf{InceptionV3}  makes better semantic assessments while the training loss curves further support that neither model overfits the data as losses are relatively smooth. Thus, the best model for isiZulu image captioning is \textbf{InceptionV3} .
+
+
+
+\section{Conclusion/Future Work }
+% Summarize your report and reiterate key points. Which algorithms were the highest performing?
+% Why do you think that some algorithms worked better than others? For
+% future work, if you had more time, more team members, or more computational resources,
+% what would you explore?
+The project addresses the critical gap that is present in automated image captioning for low-resource languages with a specific focus on isiZulu. The report introduces the problem stating why a lack of image captioning systems in isiZulu is a problem and why this matters, mainly due to digital exclusion of low resource languages and lack of well performing image captioning systems for such languages. In the report, a critical analysis is conducted on previous papers and work on two low resource languages in the domain of image captioning and two different approaches were highlighted for the languages. One is based on hyperparameter tuning of the model and the other focuses on attention based modeling to improve cultural influence on image captioning. Another study looked at in this project is the one on multilingual image captioning including the isiZulu language which emphasizes image captioning that is technically accurate but also culturally sensitive and contextually meaningful. 
+
+The approach of this project combines an established encoder-decoder architecture with spatial attention mechanisms that was adapted specifically for the linguistic characteristics of isiZulu. The project  achieves the creation of a novel isiZulu image-caption dataset based on the Flickr8k corpus which is a notable contribution to African language NLP resources. The results show that the ResNet model performs slightly better in word accuracy, however, the InceptionV3 model had better performing METEOR, CIDEr, ROUGE metrics as well as overall caption quality. The word cloud and sample predicted captions show that InceptionV3 made better semantic assessments while the training loss curves further supported that neither model overfits the data, as losses were relatively smooth. 
+
+% The expected outcomes of this work include not only technical implementations of baseline and
+% attention-based models but also comprehensive evaluation frameworks that combine quantitative
+% metrics with qualitative human assessment. By addressing the unique challenges of data scarcity,
+% linguistic complexity and cultural relevance, this project establishes a benchmark for multimodal
+% NLP in isiZulu and provides a replicable framework for extending similar capabilities to other African
+% languages.
+
+In future this project aims to integrate transformer-based architectures to potentially enhance the quality of the image captioning system. This would however require the substantial data and computational requirements to be addressed. The study looks to expand the dataset to include diverse types of images, with cultural context to improve  the model generalization. Additionally, there is room to introduce real-time deployment capabilities and user interface development to translate the research into practical applications. The project aims to explore cross-lingual transfer learning from higher-resource languages to potentially accelerate progress, as well as to incorporate more sophisticated cultural adaptation mechanisms to further enhance caption relevance.
+
+\section{Contributions}
+% The contributions section is not included in the 5 page limit. This section should describe
+% what each team member worked on and contributed to the project.
+This project represents a coordinated team effort with responsibilities distributed according to the
+project requirements. Muphulusi Dzivhani addressed the foundational aspects including problem
+investigation, research significance, project challenges and dataset selection with collection methodology.
+Simamkele Mtsengu focused on the methodological components, developing the proposed
+algorithms and conducting the literature review. Ndaedzo Makgatho designed the comprehensive
+evaluation framework, defining both quantitative metrics and qualitative assessment methods. The
+team collaborated on integrating these components and ensuring coherence across all sections of the
+report.
+
+
+% \section*{References}
+% [This section should include citations for: (1) Any papers mentioned in the related work
+% section. (2) Papers describing algorithms that you used which were not covered in class.
+% (3) Code or libraries you downloaded and used. This includes libraries such as scikit-learn, Tensorflow, Pytorch, Keras etc. Acceptable formats include: MLA, APA, IEEE. If you
+% do not use one of these formats, each reference entry must include the following (preferably
+% in this order): author(s), title, conference/journal, publisher, year. If you are using TeX,
+% you can use any bibliography format which includes the items mentioned above. We are excluding
+% the references section from the page limit to encourage students to perform a thorough
+% literature review/related work section without being space-penalized if they include more
+% references. Any choice of citation style is acceptable
+% as long as you are consistent. ]
+\appendix
+\section{Appendix}
+\subsection{IsiZulu Image Captioning Jupyter Notebook}
+\url{https://github.com/18069682/isiZulu-image-Captioning.git}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}
+
