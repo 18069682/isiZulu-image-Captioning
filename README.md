@@ -21,7 +21,17 @@ You only need the following files:
 isizulu_captioning.ipynb
 
 zu_captions.json
+⚠️ If the Notebook Asks for an HF Token (Cell 9)
 
+Some versions of the pipeline require HuggingFace authentication to load translation models.
+
+If prompted for a token:
+
+Name: HF_TOKEN
+Value: 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
+
+
+Paste this into the input box and run the cell again.
 All Python dependencies (torch, torchvision, nltk, pillow, etc.) are installed automatically inside the notebook.
 
 🚀 How to Run the Project (Step-by-Step)
