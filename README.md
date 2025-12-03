@@ -1,143 +1,100 @@
-# 📊  COS 801 Project-Bridging the Visual-Linguistic Divide: An Automated Image Captioning System for isiZulu using Deep Visual Attention Models
+COS 801 Project – Bridging the Visual-Linguistic Divide
+An Automated Image Captioning System for isiZulu using Deep Visual Attention Models
 
-![Made with Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
-![Big Data](https://img.shields.io/badge/Focus-Big%20Data-orange)
-![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
+Project Overview
+This project implements an image captioning system that generates isiZulu descriptions for images using deep learning models with visual attention. The system leverages the Flickr8k dataset and integrates custom isiZulu captions for linguistic diversity.
 
-
-
-
-📁 Repository Structure
+Repository Structure
 .
-├── isizulu_captioning.ipynb     # Main notebook with dataset prep and caption alignment
-├── zu_captions.json             # isiZulu captions file (provided separately)
-├── README.md                    
-└── results/                     # Evaluation outputs, sample captions, model results
+├── isizulu_captioning.ipynb   # Main notebook
+├── zu_captions.json           # isiZulu captions mapping
+├── results/                   # Output samples and evaluation
+└── README.md                  # Project documentation
 
-🔧 Requirements
 
-You only need the following files:
+Requirements
+
+
+Files Needed
 
 isizulu_captioning.ipynb
-
 zu_captions.json
-⚠️ If the Notebook Asks for an HF Token (Cell 9)
-
-Some versions of the pipeline require HuggingFace authentication to load translation models.
-
-If prompted for a token:
-
-Name: HF_TOKEN
-Value: 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
 
 
-Paste this into the input box and run the cell again.
-All Python dependencies (torch, torchvision, nltk, pillow, etc.) are installed automatically inside the notebook.
 
-🚀 How to Run the Project (Step-by-Step)
-1️⃣ Open the Notebook in Google Colab
+Dependencies
 
-Click:
-File → Upload notebook → Select isizulu_captioning.ipynb
+Installed automatically in the notebook:
+torch, torchvision, nltk, pillow, etc.
 
-2️⃣ Upload the isiZulu Captions File
 
-In Colab:
 
-Click the Files icon on the left
 
-Click Upload
+How to Run
 
-Upload zu_captions.json
 
-Ensure it appears at:
+Open the Notebook in Google Colab
 
-/content/zu_captions.json
+Upload isizulu_captioning.ipynb to Colab.
 
-3️⃣ Run the Notebook Cells Top-to-Bottom
+Upload isiZulu Captions
 
-The notebook will automatically:
+Upload zu_captions.json to /content/.
 
-✔ Install needed packages
-✔ Create folder structure
-✔ Download Flickr8k dataset
-✔ Extract all images
-✔ Load & clean English captions
-✔ Load isiZulu captions from JSON
-✔ Validate caption–image alignment
-✔ Display sample images + captions
+Run All Cells
 
-You should see a printed message like:
+The notebook will:
 
-Successfully loaded 4040 isiZulu captions!
+Install dependencies
+Download Flickr8k dataset
+Load English and isiZulu captions
+Validate image-caption alignment
+Display sample images with captions
 
-4️⃣ Model Training (Optional Section)
-
-If your version includes model training:
+Optional: Train the Model
 
 Train the encoder-decoder model
-
-Evaluate BLEU & accuracy
-
+Evaluate BLEU score and accuracy
 Save checkpoints under /content/models/
 
-📝 File Details
+
+
+
+File Details
+
+
 isizulu_captioning.ipynb
 
-Includes:
+Data loading and preprocessing
+Caption alignment checks
+Visualisation utilities
+Model training and evaluation (optional)
 
-Imports & installs
 
-Dataset downloader for Flickr8k
-
-Caption preprocessing
-
-JSON loader for isiZulu captions
-
-Image-caption pairing validation
-
-Visualization utilities
 
 zu_captions.json
 
-Custom dictionary mapping:
+Dictionary mapping image filenames to isiZulu captions:
+JSON{  "1000268201_693b08cb0e.jpg": ["Umfana ugxuma esihlalweni"],  "1001773457_577c3a7d70.jpg": ["Indoda igibela isithuthuthu"]}Show more lines
 
-{
-  "1000268201_693b08cb0e.jpg": ["Umfana ugxuma esihlalweni"],
-  "1001773457_577c3a7d70.jpg": ["Indoda igibela isithuthuthu"],
-  ...
-}
-
-📊 Outputs
-
-The notebook generates:
+Outputs
 
 Sample aligned captions
+Train/test splits
+Random image-caption visualisations
+If training is enabled:
 
-Train/test split tables
-
-Random sample image–caption displays
-
-Translation and captioning quality checks
-
-If training is included:
-
-Model loss curve
-
+Loss curves
 BLEU scores
-
 Predicted captions for test images
 
-We use the [Flickr8k dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), originally annotated in English.  
-For this project, captions are translated into isiZulu with human verification to ensure linguistic accuracy.  
-
-### Download Instructions
-1. Sign in to [Kaggle](https://www.kaggle.com/).
-2. Go to the [dataset link](https://www.kaggle.com/datasets/adityajn105/flickr8k).
-3. Download and extract the dataset.
-4. Place it inside the `data/` folder of this repository:
 
 
 
+Dataset
+We use the https://www.kaggle.com/datasets/adityajn105/flickr8k, originally annotated in English. Captions were translated into isiZulu and verified for accuracy.
+Download Instructions:
 
-
+Sign in to https://www.kaggle.com/.
+Download the dataset from https://www.kaggle.com/datasets/adityajn105/flickr8k.
+Extract and place it inside the data/ folder.
